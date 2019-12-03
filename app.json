@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "snunews",
+    "slug": "snunews",
+    "privacy": "public",
+    "sdkVersion": "35.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/snunews_logo.png",
+    "splash": {
+      "image": "./assets/snunews.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#000000"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.dojunggeun.snunews",
+      "splash": {
+        "image": "./assets/snunews.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#000000"
+      },
+      "icon":"./assets/snunews_logo.png",
+      "userInterfaceStyle": "automatic"
+    },
+    "android": {
+      "package": "com.dojunggeun.snunews",
+      "splash": {
+        "mdpi": "./assets/snunews.png",
+        "hdpi": "./assets/snunews.png",
+        "xhdpi": "./assets/snunews.png",
+        "xxhdpi": "./assets/snunews.png",
+        "xxxhdpi": "./assets/snunews.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#000000"
+      },
+      "icon":"./assets/snunews_logo.png"
+  }
+ }
+}
