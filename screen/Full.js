@@ -8,27 +8,28 @@ import { NavigationActions } from 'react-navigation';
 const WEBVIEW_REF = "WEBVIEW_REF";
 
 
-class Full extends Component {
+class Home extends Component { 
     constructor(props) {
         super(props);
-        this.state = { canGoBack: false };
+        this.state = { canGoBack: false, canGoNext : 0 };
       }
-
+    
     render() {
         const {navigation} = this.props;
-        return (
-    <View style={{flex:1}}>
-      <View style={{height:getStatusBarHeight()}}/>
-      <View style={{flex:1}}>
-      <WebView source={{ uri: 'http://www.snunews.com/news/articleList.html' }} ref={WEBVIEW_REF} onNavigationStateChange={this.onNavigationStateChange.bind(this)} bounces='false'/>
-        <TouchableOpacity onPressIn={this.onBack.bind(this)}>
-          <Image source={require('./lib/back.png')} style={[{opacity:0.9, width:40, height:40 }, this.state.canGoBack ? {position:'absolute', left:12, bottom:40} : {display:'none'} ]}/>
-        </TouchableOpacity>
+        return ( 
+          <View style={{flex:1}}>
+          <View style={{height:getStatusBarHeight()}}/>
+          <View style={{flex:1}}>
+          <WebView source={{ uri: 'http://www.snunews.com/news/articleList.html' }} ref={WEBVIEW_REF} onNavigationStateChange={this.onNavigationStateChange.bind(this)} bounces='false'/>
+            <TouchableOpacity  style = {{position:'absolute', left:12, bottom:40, width:40, height:40}} onPress={this.onBack.bind(this)}>
+              <Image source={require('./lib/back.png')} style={[{width:40, height:40 }, this.state.canGoBack ? {opacity:0.8} : {opacity:0.05}]} />
+            </TouchableOpacity>
+            <TouchableOpacity  style = {{position:'absolute', left:57, bottom:40, width:40, height:40}} onPress={this.goNext.bind(this)}>
+              <Image source={require('./lib/next.png')} style={[{opacity:0.9, width:40, height:40 }, this.state.canGoNext ? {opacity:0.8} : {opacity:0.05}]} />
+            </TouchableOpacity>
           </View>
-    </View>
-
-
-        );
+        </View>
+            );
     }
     onNavigationStateChange(navState) {
         this.setState({
@@ -36,11 +37,18 @@ class Full extends Component {
         });
       }
       onBack = () => {
-        if (this.state.canGoBack)
+        if (this.state.canGoBack) {
           this.refs[WEBVIEW_REF].goBack();
+          this.state.canGoNext += 1;
+        } 
       }
+      goNext = () => {
+        if (this.state.canGoNext > 0) {
+        this.refs[WEBVIEW_REF].goForward();
+        this.state.canGoNext -= 1;
+      }}
 
 }
 
-export default Full;
+export default Home;
 
