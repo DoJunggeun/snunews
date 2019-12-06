@@ -36,7 +36,7 @@
     },
     "android": {
       "package": "com.dojunggeun.snunews",
-      "versionCode": 2,
+      "versionCode": 3,
       "splash": {
         "mdpi": "./assets/snunews.png",
         "hdpi": "./assets/snunews.png",

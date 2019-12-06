@@ -11,7 +11,7 @@ const WEBVIEW_REF = "WEBVIEW_REF";
 class Home extends Component { 
     constructor(props) {
         super(props);
-        this.state = { canGoBack: false, canGoNext : 0 };
+        this.state = { canGoBack: -1, canGoNext : 0, temp : 0 };
       }
     
     render() {
@@ -20,33 +20,47 @@ class Home extends Component {
           <View style={{flex:1}}>
           <View style={{height:getStatusBarHeight()}}/>
           <View style={{flex:1}}>
-          <WebView source={{ uri: 'http://www.snunews.com/news/articleList.html' }} ref={WEBVIEW_REF} onNavigationStateChange={this.onNavigationStateChange.bind(this)} bounces='false'/>
+          <WebView source={{ uri: 'http://www.snunews.com/news/articleList.html' }} ref={WEBVIEW_REF} onLoadStart={this.onNavigationStateChange.bind(this)} bounces='false'/>
             <TouchableOpacity  style = {{position:'absolute', left:12, bottom:40, width:40, height:40}} onPress={this.onBack.bind(this)}>
-              <Image source={require('./lib/back.png')} style={[{width:40, height:40 }, this.state.canGoBack ? {opacity:0.8} : {opacity:0.05}]} />
+              <Image source={require('./lib/back.png')} style={[{width:40, height:40 }, this.state.canGoBack>= 1 ? {opacity:0.8} : {opacity:0.05}]} />
             </TouchableOpacity>
             <TouchableOpacity  style = {{position:'absolute', left:57, bottom:40, width:40, height:40}} onPress={this.goNext.bind(this)}>
-              <Image source={require('./lib/next.png')} style={[{opacity:0.9, width:40, height:40 }, this.state.canGoNext ? {opacity:0.8} : {opacity:0.05}]} />
+              <Image source={require('./lib/next.png')} style={[{opacity:0.9, width:40, height:40 }, this.state.canGoNext>= 1 ? {opacity:0.8} : {opacity:0.05}]} />
             </TouchableOpacity>
           </View>
         </View>
             );
     }
-    onNavigationStateChange(navState) {
+    onNavigationStateChange = () => {
+      this.setState({
+        canGoBack: this.state.canGoBack+1,
+        canGoNext: 0
+      }, () => {
         this.setState({
-          canGoBack: navState.canGoBack
+          canGoNext : this.state.temp,
+          temp : 0
         });
       }
-      onBack = () => {
-        if (this.state.canGoBack) {
-          this.refs[WEBVIEW_REF].goBack();
-          this.state.canGoNext += 1;
+      );
+  }
+    onBack = () => {
+      if (this.state.canGoBack>=1) {
+        this.refs[WEBVIEW_REF].goBack();
+        this.setState({
+          canGoBack: this.state.canGoBack-2,
+          temp: this.state.canGoNext+1,
+        }
+        );
         } 
-      }
-      goNext = () => {
-        if (this.state.canGoNext > 0) {
-        this.refs[WEBVIEW_REF].goForward();
-        this.state.canGoNext -= 1;
-      }}
+    }
+    goNext = () => {
+      if (this.state.canGoNext >= 1) {
+      this.refs[WEBVIEW_REF].goForward();
+      this.setState({
+        canGoBack: this.state.canGoBack,
+        temp: this.state.canGoNext-1,
+      });
+    }}
 
 }
 
