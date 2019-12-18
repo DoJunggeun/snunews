@@ -3,7 +3,6 @@ import { Image, View, Text, TouchableOpacity} from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { WebView } from 'react-native-webview';
 import SafeAreaView from 'react-native-safe-area-view';
-import { NavigationActions } from 'react-navigation';
 
 const WEBVIEW_REF = "WEBVIEW_REF";
 
@@ -18,8 +17,6 @@ class Home extends Component {
         const {navigation} = this.props;
         return ( 
           <View style={{flex:1}}>
-          <View style={{height:getStatusBarHeight()}}/>
-          <View style={{flex:1}}>
           <WebView source={{ uri: 'http://www.snunews.com/news/articleList.html' }} ref={WEBVIEW_REF} onLoadStart={this.onNavigationStateChange.bind(this)} bounces='false'/>
             <TouchableOpacity  style = {{position:'absolute', left:12, bottom:40, width:40, height:40}} onPress={this.onBack.bind(this)}>
               <Image source={require('./lib/back.png')} style={[{width:40, height:40 }, this.state.canGoBack>= 1 ? {opacity:0.8} : {opacity:0.05}]} />
@@ -27,7 +24,6 @@ class Home extends Component {
             <TouchableOpacity  style = {{position:'absolute', left:57, bottom:40, width:40, height:40}} onPress={this.goNext.bind(this)}>
               <Image source={require('./lib/next.png')} style={[{opacity:0.9, width:40, height:40 }, this.state.canGoNext>= 1 ? {opacity:0.8} : {opacity:0.05}]} />
             </TouchableOpacity>
-          </View>
         </View>
             );
     }

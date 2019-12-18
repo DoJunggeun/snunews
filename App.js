@@ -1,9 +1,5 @@
-import React from 'react';
-import { ScrollView, TextInput, StyleSheet, Text, View } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
+import React, {Component} from 'react';
+import {createAppContainer, SafeAreaView} from 'react-navigation';
 import Home from './screen/Home';
 import Contact from './screen/Contact';
 import Paper from './screen/Paper';
@@ -12,7 +8,7 @@ import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 
 
 
-const App = createMaterialTopTabNavigator(
+const Screens = createMaterialTopTabNavigator(
     {
       Home: {screen:Home,
         navigationOptions: () => ({
@@ -57,5 +53,16 @@ const App = createMaterialTopTabNavigator(
 );
 
 
+const Appp = createAppContainer(Screens);
 
-export default createAppContainer(App);
+class App extends Component {
+  render() {
+    return (
+      <SafeAreaView style={{flex:1}} forceInset={{bottom:'always', top:'always'}}>
+        <Appp/>
+      </SafeAreaView>
+    );
+  }
+}
+
+export default App;

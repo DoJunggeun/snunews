@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "snunews",
+    "name": "서울대학교 대학신문",
     "slug": "snunews",
     "privacy": "public",
     "sdkVersion": "35.0.0",
@@ -36,7 +36,7 @@
     },
     "android": {
       "package": "com.dojunggeun.snunews",
-      "versionCode": 3,
+      "versionCode": 4,
       "splash": {
         "mdpi": "./assets/snunews.png",
         "hdpi": "./assets/snunews.png",
